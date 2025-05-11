@@ -4,8 +4,6 @@ class GamiChecker:
         self.my_bets = my_bets
 
         self.my_total_bets = self.get_total_bets()
-        print(self.my_total_bets)
-
 
     def check_gami(self):
         # self.number_of_starersが出走数とするとき、
@@ -13,6 +11,8 @@ class GamiChecker:
 
         results = []
         is_gami = False
+        min_payout = 9999999999999999999999999999999999
+        max_payout = 0
 
         for i in range(self.number_of_starters):
             for j in range(self.number_of_starters):
@@ -26,6 +26,7 @@ class GamiChecker:
                     win_numbers = [i+1, j+1, k+1]
                     payout = 0
                     is_hit = False
+                    
 
                     for my_bet in self.my_bets:
                         bet_type = my_bet[0]
@@ -42,6 +43,12 @@ class GamiChecker:
                     if payout < self.my_total_bets:
                         is_gami = True
 
+                    if payout != 0 and min_payout > payout:
+                        min_payout = payout
+
+                    if max_payout < payout:
+                        max_payout = payout
+
                     if is_hit:
                         results.append({
                             "win_numbers": win_numbers,
@@ -49,7 +56,7 @@ class GamiChecker:
                             "payout": payout
                         })
 
-        return is_gami, results
+        return is_gami, min_payout, max_payout, results
 
 
 

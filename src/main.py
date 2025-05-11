@@ -24,7 +24,11 @@ def load_bet_selections_csv(bet_selections_csv: str):
         # 2行目以降をリストに格納
         data = [row for row in reader]
 
-    return data    
+    return data
+
+def save_result(results):
+    with open("results.json", "w", encoding="utf-8") as f:
+        json.dump({"results":results}, f, indent=2, ensure_ascii=False)
     
 def main(config_file):
     race_config = load_config(config_file)
@@ -32,10 +36,13 @@ def main(config_file):
 
     gami_checker = check_gami.GamiChecker(race_config.number_of_starters, data)
 
-    is_gami, results  =gami_checker.check_gami()
+    is_gami, min_payout, max_payout, results = gami_checker.check_gami()
 
     print("がみった?", is_gami)
-    print("結果一覧", results)
+    print("購入金額: ", gami_checker.my_total_bets)
+    print("最低払い戻し額: ", min_payout)
+    print("最大払い戻し額: ", max_payout)
+    save_result(results)
 
 if __name__=="__main__":
     # csvファイルの名前を指定
