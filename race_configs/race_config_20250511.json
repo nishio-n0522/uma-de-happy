@@ -1,0 +1,9 @@
+{
+  "date": "20250511",
+  "stadium": "tokyo",
+  "race_number": 11,
+  "race_distance": 1600,
+  "surface_type": "turf",
+  "number_of_starters": 18,
+  "bet_selections_csv": "bet_selections_20250511.csv"
+}

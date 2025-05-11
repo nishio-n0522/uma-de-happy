@@ -1,0 +1,4 @@
+[tool.ruff]
+fix = true
+select = ["Q"]
+extend-select = ["Q000"]  # ダブルクォート固定
